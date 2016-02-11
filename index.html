@@ -1,0 +1,212 @@
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+		<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="css/main.css">
+		
+		<script type="text/javascript" src="js/vendor.js"></script>
+		<script src="http://127.0.0.1:35729/livereload.js"></script>
+		
+	</head>
+	
+	<body>
+		<div class="body container">
+			<div class="header row">
+				<div class="col-md-6">Header</div>
+			</div>
+			<div class="main-content row">
+				<div class="col-md-6">Hello</div>
+				<div class="col-md-6">Hello</div>
+			</div>
+		</div>
+	
+	</body>
+	
+	<script>
+/*
+	var width = 960,
+    height = 500;
+
+var color = d3.scale.category20();
+
+var force = d3.layout.force()
+    .charge(-120)
+    .linkDistance(30)
+    .size([width, height]);
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+d3.json("miserables.json", function(error, graph) {
+  if (error) throw error;
+
+  force
+      .nodes(graph.nodes)
+      .links(graph.links)
+      .start();
+
+  var link = svg.selectAll(".link")
+      .data(graph.links)
+    .enter().append("line")
+      .attr("class", "link")
+      .style("stroke-width", function(d) { return Math.sqrt(d.value); });
+
+  var node = svg.selectAll(".node")
+      .data(graph.nodes)
+    .enter().append("circle")
+      .attr("class", "node")
+      .attr("r", 8)
+      .style("fill", function(d) { return color(d.group); })
+      .call(force.drag);
+
+  node.append("title")
+      .text(function(d) { return d.name; });
+
+
+  force.on("tick", function() {
+    link.attr("x1", function(d) { return d.source.x; })
+        .attr("y1", function(d) { return d.source.y; })
+        .attr("x2", function(d) { return d.target.x; })
+        .attr("y2", function(d) { return d.target.y; });
+
+    node.attr("cx", function(d) { return d.x; })
+        .attr("cy", function(d) { return d.y; });
+  });
+});
+*/
+
+var color = d3.scale.category20();
+
+var width = 960,
+    height = 500
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+	
+var defs = svg.append("defs");
+
+// create filter with id #drop-shadow
+// height=130% so that the shadow is not clipped
+var filter = defs.append("filter")
+    .attr("id", "drop-shadow")
+    .attr("height", "130%");
+// SourceAlpha refers to opacity of graphic that this filter will be applied to
+// convolve that with a Gaussian with standard deviation 3 and store result
+// in blur
+filter.append("feGaussianBlur")
+    .attr("in", "SourceAlpha")
+    .attr("stdDeviation", 5)
+    .attr("result", "blur");
+
+// translate output of Gaussian blur to the right and downwards with 2px
+// store result in offsetBlur
+filter.append("feOffset")
+    .attr("in", "blur")
+    .attr("dx", 5)
+    .attr("dy", 5)
+    .attr("result", "offsetBlur");
+	
+var feMerge = filter.append("feMerge");
+
+feMerge.append("feMergeNode")
+    .attr("in", "offsetBlur")
+feMerge.append("feMergeNode")
+    .attr("in", "SourceGraphic");
+
+var force = d3.layout.force()
+    .gravity(0.05)
+    .distance(100)
+    .charge(-100)
+	//.friction(0.5)
+	.chargeDistance(800)
+    .size([width, height]);
+
+d3.json("miserables.json", function(error, json) {
+  if (error) throw error;
+
+  force
+      .nodes(json.nodes)
+      .links(json.links)
+      .start();
+	  
+  var tooltip = d3.select("body")
+	.append("div")
+	.style("position", "absolute")
+	.style("z-index", "10")
+	.style("visibility", "hidden");
+
+  var link = svg.selectAll(".link")
+      .data(json.links)
+      .enter().append("line")
+      .attr("class", "link")
+	  .attr("title", "Sample")
+	  .style("stroke-width", function(d) { return Math.sqrt(d.value); })
+	  /*
+	  .on("mousemove", function(){
+			console.log(d3.select(this));
+			d3.select(this).style("filter", "url(#drop-shadow)");
+			 var m = d3.mouse(this);
+			 //d3.select("#myPath").select("title").text(m[1]);
+		})
+	  .on("mouseout", function(){
+		d3.select(this).style("filter", "");
+	  })*/
+	.on("mouseover", function(d){return tooltip.style("visibility", "visible").html( '<div class="well">'+d.text+'</div>'); })
+	.on("mousemove", function(){return tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px");})
+	.on("mouseout", function(){return tooltip.style("visibility", "hidden");})
+	  .style("stroke", function(d) { return color(d.value); });
+	  
+ 
+
+  var node = svg.selectAll(".node")
+      .data(json.nodes)
+    .enter().append("g")
+      .attr("class", "node")
+      .call(force.drag);
+	  
+	 node.on("mouseover", function(d){return tooltip.style("visibility", "visible").html( '<div class="panel panel-primary"> <div class="panel-heading"> <h3 class="panel-title">Relation</h3> </div> <div class="panel-body"> '+d.name+' </div> </div>'); })
+	.on("mousemove", function(){return tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px");})
+	.on("mouseout", function(){return tooltip.style("visibility", "hidden");}) 
+	  
+    node.append("circle")
+	  .style("fill", function(d) { return color(d.group); })
+	  .attr("class", "node glyphicon glyphicon-user")
+	  .attr("x", -20)
+      .attr("y", -20)
+      .attr("r", 13)
+	  
+  node.append("image")
+      .attr("xlink:href", "https://github.com/favicon.ico")
+      .attr("x", -8)
+      .attr("y", -8)
+      .attr("width", 16)
+      .attr("height", 16);
+
+  node.append("text")
+	  .attr("class", "text-node")
+      .attr("dx", 12)
+      .attr("dy", ".35em")
+      
+	  
+	  .append("a")
+	  .attr("target", "_blank")
+	  .attr("xlink:href", function (d) {
+        return "http://example.com/" + d.name;
+	 })
+	 .text(function(d) { return d.name })
+	  ;
+	 
+
+  force.on("tick", function() {
+    link.attr("x1", function(d) { return d.source.x; })
+        .attr("y1", function(d) { return d.source.y; })
+        .attr("x2", function(d) { return d.target.x; })
+        .attr("y2", function(d) { return d.target.y; });
+
+    node.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+  });
+});
+	</script>
+</html>

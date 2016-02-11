@@ -1,0 +1,25 @@
+{
+  "name": "home-redesign",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "pedro.f.marquez.soto <pedro.f.marquez.soto@accenture.com>"
+  ],
+  "license": "ISC",
+  "moduleType": [],
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "d3": "~3.5.14",
+    "angular": "^1.5.0",
+    "bootstrap": "^3.3.6",
+    "jquery": "^2.2.0"
+  }
+}
