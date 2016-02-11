@@ -2,6 +2,13 @@
   border-style: solid;
   border-width: 1px;
 }
+.body .header {
+  background-color: black;
+  color: white;
+  min-height: 50px;
+  height: auto;
+  padding: 10px;
+}
 
 .node {
   stroke: #fff;

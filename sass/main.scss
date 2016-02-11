@@ -7,6 +7,13 @@ body{
 	//background-color:grey; 
 	border-style: solid;
     border-width: 1px;
+	.header{
+		background-color:black;
+		color:white;
+		min-height:50px;
+		height:auto;
+		padding:10px;
+	}
 }
 
 .node {
