@@ -31,3 +31,19 @@ body{
 .text-link{
   font: 10px verdana;
 }
+
+.person-image{
+	img{
+		object-fit: cover;
+		width:200px;
+		height:200px;
+		overflow: hidden; 
+	}
+}
+
+.person-label{
+	.badge{
+		margin-left:-5px;
+		margin-top:-10px;
+	}
+}

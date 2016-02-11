@@ -1,0 +1,24 @@
+{
+  "nodes":[
+    {"name":"Myriel","group":1,"href":"http://www.google.com", "thumbUrl":"ajax/personCard.json"},
+    {"name":"Napoleon","group":1,"href":"http://www.google.com", "thumbUrl":"ajax/personCard2.json"},
+    {"name":"Mlle.Baptistine","group":1,"href":"http://www.google.com", "thumbUrl":"ajax/personCard.json"},
+    {"name":"Mme.Magloire","group":1,"href":"http://www.google.com", "thumbUrl":"ajax/personCard2.json"},
+    {"name":"CountessdeLo","group":2,"href":"http://www.google.com", "thumbUrl":"ajax/personCard.json"},
+    {"name":"Geborand","group":1,"href":"http://www.google.com", "thumbUrl":"ajax/personCard2.json"},
+    {"name":"Champtercier","group":1,"href":"http://www.google.com", "thumbUrl":"ajax/personCard.json"},
+    {"name":"Cravatte","group":1,"href":"http://www.google.com", "thumbUrl":"ajax/personCard2.json"},
+    {"name":"Valjean","group":2,"href":"http://www.google.com", "thumbUrl":"ajax/personCard.json"}
+  ],
+  "links":[
+    {"source":1,"target":0,"value":1,"text":"RL"},
+    {"source":2,"target":0,"value":8,"text":"RL"},
+    {"source":3,"target":0,"value":10,"text":"RL"},
+    {"source":3,"target":2,"value":6,"text":"RL"},
+    {"source":4,"target":0,"value":1,"text":"RL"},
+    {"source":5,"target":0,"value":1,"text":"RL"},
+    {"source":6,"target":0,"value":1,"text":"RL"},
+    {"source":7,"target":0,"value":1,"text":"RL"},
+    {"source":8,"target":0,"value":2,"text":"RL"}
+  ]
+}
