@@ -1,10 +1,5 @@
 {
-  "name":"Jane Doe",
-  "imageUrl":"img/face1.jpg",
-  "city":"Austin",
-  "labels":[{
-	"type":2,
-	"text":"Failed to report",
-	"count":2
-  }]
+  "caseId":"AA1565153",
+  "caseType":"Abuse",
+  "date":"02/11/2016"
 }

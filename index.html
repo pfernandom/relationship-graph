@@ -1,28 +1,44 @@
-<html data-ng-app="myGraphApp">
-	<head>
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
-		<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-		<link rel="stylesheet" type="text/css" href="css/main.css">
-		
-		<script type="text/javascript" src="/js/vendor.js"></script>
-    <script type="text/javascript" src="/js/app.js"></script>
-		<script src="http://127.0.0.1:35729/livereload.js"></script>
-		
-	</head>
-	
-	<body >
-		<div class="body container">
-			<div class="header row">
-				<div class="col-md-6">Accenture Case Relationships</div>
-			</div>
-			<div class="main-content row">
-				<div class="col-md-6"></div>
-				<div class="col-md-6"></div>
-			</div>
-			<graph-chart href="ajax/miserables.json" class="col-md-12"></graph-chart>
-		</div>
+<html data-ng-app="myGraphApp" ng-strict-di>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+	<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
 
-	</body>
+	<script type="text/javascript" src="/js/vendor.js"></script>
+	<script type="text/javascript" src="/js/app.js"></script>
+	<script type="text/javascript" src="/js/services.js"></script>
+	<script type="text/javascript" src="/js/directives.js"></script>
+	<script src="http://127.0.0.1:35729/livereload.js"></script>
+
+</head>
+
+<body>
+<my-header></my-header>
+<div class="body container">
+	<div class="main-content row">
+		<div class="col-sm-12 col-md-3">
+
+
+			<div class="input-group">
+				<input type="search" class="form-control" placeholder="Search for...">
+			  <span class="input-group-btn">
+				<button class="btn btn-default" type="button">Go!</button>
+			  </span>
+			</div><!-- /input-group -->
+			<ul class="nav nav-tabs nav-justified">
+				<li><a ui-sref="state1">State 1</a></li>
+				<li><a ui-sref="state2({ personId: 'victims' })">State 2</a></li>
+				<li><a ui-sref="state2({ personId: 'miserables' })">State 3</a></li>
+			</ul>
+		</div>
+		<div class="col-sm-12 col-md-9">
+			<div ui-view></div>
+		</div>
+	</div>
+
+</div>
+<my-footer></my-footer>
+</body>
 
 
 </html>

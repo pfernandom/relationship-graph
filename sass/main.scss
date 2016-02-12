@@ -1,19 +1,37 @@
 body{
-	
+	overflow-x: hidden;
 	
 }
 
+svg{
+  border-style: solid;
+  border-width: 1px;
+  border-color: #C3C3C3;
+}
+
+.header{
+  background-color:black;
+  color:white;
+  min-height:5%;
+  height:auto;
+  padding:10px;
+  .row{
+	width: 100%;
+  }
+}
+
 .body{
-	//background-color:grey; 
+  	min-height:90%;
 	border-style: solid;
     border-width: 1px;
-	.header{
-		background-color:black;
-		color:white;
-		min-height:50px;
-		height:auto;
-		padding:10px;
-	}
+  	border-color: #C3C3C3;
+}
+
+graph-chart{
+  display:block;
+  .glyphicon-refresh{
+	margin-bottom:-3em;
+  }
 }
 
 .node {
@@ -21,11 +39,20 @@ body{
   stroke-width: 1.5px;
 }
 
+g{
+  path.link {
+	fill: none;
+	stroke: #666;
+	stroke-width: 1.5px;
+  }
+}
+
+/*
 .link {
   stroke: #999;
   stroke-opacity: .6;
 }
-
+*/
 .node text {
   //pointer-events: none;
   font: 10px verdana;
@@ -44,7 +71,11 @@ body{
 		object-fit: cover;
 		width:200px;
 		height:200px;
-		overflow: hidden; 
+		overflow: hidden;
+	  @media (max-width: 544px) {
+		width:100px;
+		height:100px;
+	  }
 	}
 }
 
@@ -52,5 +83,32 @@ body{
 	.badge{
 		margin-left:-5px;
 		margin-top:-10px;
+	 	 font-size:1em;
+	  @media (max-width: 544px) {
+		margin:0;
+	  }
 	}
+}
+
+.graph-tooltip{
+  position:absolute;
+  z-index: 10;
+  visibility: hidden;
+
+  @media (max-width: 544px) {
+	font-size:10px;
+	max-width:200px;
+
+  }
+}
+
+.footer{
+  background-color:black;
+  color:white;
+  min-height:5%;
+  height:auto;
+  padding:10px;
+  .row{
+	width: 100%;
+  }
 }

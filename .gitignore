@@ -52,6 +52,7 @@ Temporary Items
 .classpath
 dist
 
+.idea
 #Grunt ignore
 **/bower_components
 .tern-project
