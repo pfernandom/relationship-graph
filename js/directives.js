@@ -32,6 +32,37 @@ app.directive('personInfoCard',['$http',function($http){
 
 }]);
 
+app.directive('personTable',['$http',function($http){
+	return {
+		scope:{
+			href:'@'
+		},
+		templateUrl:'partials/personTable.html',
+		link:function(scope, element, attrs) {
+			console.log(scope.href+":"+scope.href.length);
+
+			if(scope.href  && 0 !== scope.href.length){
+				scope.href = "ajax/"+scope.href+".json";
+				var responsePromise = $http.get(scope.href);
+				responsePromise.success(function(data, status, headers, config) {
+					scope.data = data;
+				});
+				responsePromise.error(function(data, status, headers, config) {
+					alert("AJAX failed!");
+				});
+
+				scope.$watch("href",function(newValue,oldValue) {
+					console.log('Value changed!'+newValue);
+				});
+			}
+			else{
+				scope.isEmpty = true;
+			}
+		}
+	}
+
+}]);
+
 app.directive('caseInfoCard',['$http',function($http){
 	return {
 		scope:{
@@ -74,6 +105,7 @@ app.directive('myFooter',['$http',function($http){
 		templateUrl:'partials/footer.html'
 	}
 }]);
+
 
 app.directive('graphChart',['$compile','GraphService',function($compile, GraphService){
 	return {
@@ -123,7 +155,7 @@ app.directive('graphChart',['$compile','GraphService',function($compile, GraphSe
 					link.attr("d", function(d) {
 						var dx = d.target.x - d.source.x,
 							dy = d.target.y - d.source.y,
-							dr = Math.sqrt(dx * dx + dy * dy) + 5;
+							dr = Math.sqrt(dx * dx + dy * dy) + 15;
 						return "M" +
 							d.source.x + "," +
 							d.source.y + "A" +

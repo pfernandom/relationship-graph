@@ -1,6 +1,14 @@
 "use strict";
 var app = angular.module('myGraphApp');
 
+app.service('PersonTableService',function(){
+	return {
+		updateData:function(url){
+
+		}
+	}
+});
+
 app.service('GraphService',['$rootScope','$compile',function($rootScope,$compile){
 	return {
 		svg:{},
@@ -15,7 +23,7 @@ app.service('GraphService',['$rootScope','$compile',function($rootScope,$compile
 			this.tooltip = this.createTooltip();
 			this.force = d3.layout.force()
 				.gravity(0.05)
-				.distance(100)
+				.distance(110)
 				.charge(-100)
 				//.friction(0.5)
 				.chargeDistance(800)

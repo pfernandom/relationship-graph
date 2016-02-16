@@ -55,7 +55,8 @@ g{
 */
 .node text {
   //pointer-events: none;
-  font: 10px verdana;
+  font-family: verdana;
+  font-size: 1em;
   
   stroke: black;
   stroke-width: 0.1px;
@@ -63,7 +64,8 @@ g{
 }
 
 .text-link{
-  font: 10px verdana;
+  font-family: verdana;
+  font-size: 1em;
 }
 
 .person-image{

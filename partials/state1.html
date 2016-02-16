@@ -1,4 +1,11 @@
-<h1>State 1</h1>
+<h1>Search a person</h1>
 <hr/>
-<a ui-sref="state1.list">Show List</a>
-<div ui-view></div>
+<div class="input-group">
+    <input type="search" class="form-control" placeholder="Search for...">
+  <span class="input-group-btn">
+    <button class="btn btn-default" type="button">Go!</button>
+  </span>
+</div><!-- /input-group -->
+<a ui-sref="state1.list({ personId: 'miserables' })" ui-sref-opts="{reload: true}">Show List</a>
+<a ui-sref="state1.list({ personId: 'victims' })" ui-sref-opts="{reload: true}">Show Another List</a>
+<div ui-view="viewSub"></div>

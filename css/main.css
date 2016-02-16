@@ -51,14 +51,16 @@ g path.link {
 }
 */
 .node text {
-  font: 10px verdana;
+  font-family: verdana;
+  font-size: 1em;
   stroke: black;
   stroke-width: 0.1px;
   opacity: 1;
 }
 
 .text-link {
-  font: 10px verdana;
+  font-family: verdana;
+  font-size: 1em;
 }
 
 .person-image img {
@@ -107,5 +109,3 @@ g path.link {
 .footer .row {
   width: 100%;
 }
-
-/*# sourceMappingURL=main.css.map */

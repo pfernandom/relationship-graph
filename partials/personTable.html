@@ -1,0 +1,9 @@
+<h3>Persons involved</h3>
+
+<p ng-if="isEmpty">Please select a person to see relationships</p>
+<p ng-if="!isEmpty" class="container">
+    <div ng-repeat="node in data.nodes" class="row">
+        <div class="col-md-3">Name</div>
+        <div class="col-md-6">{{node.name}}</div>
+    </div>
+</p>

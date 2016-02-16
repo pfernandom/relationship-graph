@@ -17,22 +17,16 @@
 <div class="body container">
 	<div class="main-content row">
 		<div class="col-sm-12 col-md-3">
-
-
-			<div class="input-group">
-				<input type="search" class="form-control" placeholder="Search for...">
-			  <span class="input-group-btn">
-				<button class="btn btn-default" type="button">Go!</button>
-			  </span>
-			</div><!-- /input-group -->
 			<ul class="nav nav-tabs nav-justified">
 				<li><a ui-sref="state1">State 1</a></li>
 				<li><a ui-sref="state2({ personId: 'victims' })">State 2</a></li>
 				<li><a ui-sref="state2({ personId: 'miserables' })">State 3</a></li>
 			</ul>
+
+			<div ui-view="viewLeft"></div>
 		</div>
 		<div class="col-sm-12 col-md-9">
-			<div ui-view></div>
+			<div ui-view="viewMain"></div>
 		</div>
 	</div>
 
