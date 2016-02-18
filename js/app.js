@@ -1,4 +1,13 @@
-var app = angular.module('myGraphApp',['ui.router']);
+var app = angular.module('myGraphApp',['ui.router','ui.bootstrap']);
+
+app.constant('appProperties',{
+	urls:{
+		listOfPersons:'ajax/listOfPersons.json',
+		getPerson:'ajax/personCard.json',
+		getRelationshipsForPerson:'ajax/miserables.json',
+		getRelationshipTypeMap:'ajax/relationsMap.json'
+	}
+})
 
 app.config(['$stateProvider', '$urlRouterProvider',function($stateProvider, $urlRouterProvider) {
 	//
@@ -19,12 +28,35 @@ app.config(['$stateProvider', '$urlRouterProvider',function($stateProvider, $url
 			}],
 			views: {
 				"viewLeft": {
-					template: '<person-table href="{{href}}"></person-table>',
+					template: '<person-table person-id="{{personId}}"></person-table>',
 					controller: ['$scope', '$stateParams', function($scope, $stateParams) {
+						console.log($stateParams);
+
+						$scope.personId = $stateParams.personId;
 						console.log('Ctrl:'+$stateParams.personId);
-						$scope.href = $stateParams.personId;
 					}]},
-				"viewMain": { templateUrl: "partials/state1.html" }
+				"viewMain": {
+					templateUrl: "partials/state1.html",
+					controller: ['$scope', '$stateParams','PersonService', function($scope, $stateParams, PersonService) {
+						$scope.search = "";
+						$scope.showAll = false;
+						$scope.query = {name:$scope.search};
+						PersonService.getListOfPersons(function(data, status, headers, config) {
+							//$scope.data = data;
+							$scope.persons = data.persons;
+						},function(data, status, headers, config) {
+							alert("AJAX failed!");
+						});
+
+						/*
+						$scope.frameworks = [
+							{name: 'Django', language: 'Python'},
+							{name: 'AngularJS', language: 'Javascritp'}
+						];
+						*/
+
+					}]
+				}
 			}
 
 		})
@@ -40,10 +72,10 @@ app.config(['$stateProvider', '$urlRouterProvider',function($stateProvider, $url
 			}],
 			views: {
 				"viewSub": {
-					template: '<graph-chart href="{{href}}"></graph-chart>',
+					template: '<graph-chart personId="{{personId}}"></graph-chart>',
 					controller: ['$scope', '$stateParams', function($scope, $stateParams) {
-						$scope.href = "ajax/"+$stateParams.personId+".json";
-					}],
+						$scope.personId = $stateParams.personId;
+					}]
 				}
 			}
 		})
@@ -53,9 +85,9 @@ app.config(['$stateProvider', '$urlRouterProvider',function($stateProvider, $url
 			views: {
 				"viewLeft": { template: "X" },
 				"viewMain": {
-					template: '<graph-chart href="{{href}}"></graph-chart>',
+					template: '<graph-chart personId="{{personId}}"></graph-chart>',
 					controller: ['$scope', '$stateParams', function($scope, $stateParams) {
-						$scope.href = "ajax/"+$stateParams.personId+".json";
+						$scope.personId = $stateParams.personId;
 					}],
 				}
 			}

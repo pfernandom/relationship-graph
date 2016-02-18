@@ -1,6 +1,7 @@
 <html data-ng-app="myGraphApp" ng-strict-di>
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
 	<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 
@@ -16,7 +17,7 @@
 <my-header></my-header>
 <div class="body container">
 	<div class="main-content row">
-		<div class="col-sm-12 col-md-3">
+		<div class="left col-sm-12 col-md-3">
 			<ul class="nav nav-tabs nav-justified">
 				<li><a ui-sref="state1">State 1</a></li>
 				<li><a ui-sref="state2({ personId: 'victims' })">State 2</a></li>
@@ -25,7 +26,7 @@
 
 			<div ui-view="viewLeft"></div>
 		</div>
-		<div class="col-sm-12 col-md-9">
+		<div class="center col-sm-12 col-md-9">
 			<div ui-view="viewMain"></div>
 		</div>
 	</div>

@@ -1,11 +1,23 @@
 <h1>Search a person</h1>
 <hr/>
+
+Show All: <input type="checkbox" aria-label="..." ng-model="showAll">
+
 <div class="input-group">
-    <input type="search" class="form-control" placeholder="Search for...">
+    <input type="search" class="form-control" placeholder="Search for..."  ng-model="query['name']">
   <span class="input-group-btn">
     <button class="btn btn-default" type="button">Go!</button>
   </span>
 </div><!-- /input-group -->
+
+<ul ng-show="query['name']!=='' || showAll">
+    <li ng-repeat="person in persons | filter:query">
+        <a ui-sref="state1.list({ personId: person.id })">{{person.name}}</a>
+    </li>
+</ul>
+
+<!--
 <a ui-sref="state1.list({ personId: 'miserables' })" ui-sref-opts="{reload: true}">Show List</a>
 <a ui-sref="state1.list({ personId: 'victims' })" ui-sref-opts="{reload: true}">Show Another List</a>
+-->
 <div ui-view="viewSub"></div>

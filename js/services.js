@@ -9,6 +9,51 @@ app.service('PersonTableService',function(){
 	}
 });
 
+app.service('PersonService',['appProperties','$http',function(appProperties,$http){
+	var relationshipMap = {};
+	var responsePromise = $http.get(appProperties.urls.getRelationshipTypeMap);
+	responsePromise.success(function(data){
+		relationshipMap = data;
+	});
+	responsePromise.error(function(err){
+		alert('AJAX error');
+	});
+	return {
+		getListOfPersons:function(success,failure){
+			var responsePromise = $http.get(appProperties.urls.listOfPersons);
+			responsePromise.success(success);
+			responsePromise.error(failure);
+		},
+		getPerson:function(id, success, failure){
+			var responsePromise = $http({
+				url:appProperties.urls.getPerson,
+				method:"GET",
+				params:{
+					id:id
+				}
+
+			});
+			responsePromise.success(success);
+			responsePromise.error(failure);
+		},
+		getRelationshipsForPerson:function(id, success, failure){
+			var responsePromise = $http({
+				url:appProperties.urls.getRelationshipsForPerson,
+				method:"GET",
+				params:{
+					id:id
+				}
+
+			});
+			responsePromise.success(success);
+			responsePromise.error(failure);
+		},
+		getTypeOfRelationship:function(relationKey){
+			return relationshipMap[relationKey];
+		}
+	}
+}]);
+
 app.service('GraphService',['$rootScope','$compile',function($rootScope,$compile){
 	return {
 		svg:{},
@@ -23,10 +68,10 @@ app.service('GraphService',['$rootScope','$compile',function($rootScope,$compile
 			this.tooltip = this.createTooltip();
 			this.force = d3.layout.force()
 				.gravity(0.05)
-				.distance(110)
+				.distance(width/3)
 				.charge(-100)
 				//.friction(0.5)
-				.chargeDistance(800)
+				.chargeDistance(1000)
 				.size([width, height]);
 			return this.force;
 		},

@@ -1,0 +1,12 @@
+{
+  "persons":[
+    {"id":1,"name":"Donald Cruz","group":1,"href":"ajax/miserables.json"},
+    {"id":2,"name":"Maria Cruz","group":2,"href":"ajax/miserables.json"},
+    {"id":3,"name":"Carlos Cruz","group":3,"href":"ajax/miserables.json"},
+    {"id":4,"name":"Shieko Cruz","group":4,"href":"ajax/miserables.json"},
+    {"id":5,"name":"Minoda Cruz","group":5,"href":"ajax/miserables.json"},
+    {"id":6,"name":"Hillary Jay","group":6,"href":"ajax/miserables.json"},
+    {"id":7,"name":"Bernie Marsh","group":7,"href":"ajax/miserables.json"},
+    {"id":8,"name":"Marco Lopez","group":8,"href":"ajax/miserables.json"}
+  ]
+}

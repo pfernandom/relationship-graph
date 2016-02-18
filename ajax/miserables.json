@@ -1,22 +1,22 @@
 {
   "nodes":[
-    {"name":"Donald Cruz","group":1,"href":"http://www.google.com", "thumbUrl":"ajax/personCard2.json"},
-    {"name":"Maria Cruz","group":2,"href":"http://www.google.com", "thumbUrl":"ajax/personCard.json"},
-    {"name":"Carlos Cruz","group":3,"href":"http://www.google.com", "thumbUrl":"ajax/personCard2.json"},
-    {"name":"Shieko Cruz","group":4,"href":"http://www.google.com", "thumbUrl":"ajax/personCard.json"},
-    {"name":"Minoda Cruz","group":5,"href":"http://www.google.com", "thumbUrl":"ajax/personCard.json"},
-    {"name":"Hillary Jay","group":6,"href":"http://www.google.com", "thumbUrl":"ajax/personCard2.json"},
-    {"name":"Bernie Marsh","group":7,"href":"http://www.google.com", "thumbUrl":"ajax/personCard.json"},
-    {"name":"Marco Lopez","group":8,"href":"http://www.google.com", "thumbUrl":"ajax/personCard2.json"}
+    {"nodeNum":0,"personId":"1","name":"Donald Cruz","group":1,"href":"http://www.google.com", "thumbUrl":"ajax/personCard2.json"},
+    {"nodeNum":1,"personId":"2","name":"Maria Cruz","group":2,"href":"http://www.google.com", "thumbUrl":"ajax/personCard.json"},
+    {"nodeNum":2,"personId":"3","name":"Carlos Cruz","group":3,"href":"http://www.google.com", "thumbUrl":"ajax/personCard2.json"},
+    {"nodeNum":3,"personId":"4","name":"Shieko Cruz","group":4,"href":"http://www.google.com", "thumbUrl":"ajax/personCard.json"},
+    {"nodeNum":4,"personId":"5","name":"Minoda Cruz","group":5,"href":"http://www.google.com", "thumbUrl":"ajax/personCard.json"},
+    {"nodeNum":5,"personId":"6","name":"Hillary Jay","group":6,"href":"http://www.google.com", "thumbUrl":"ajax/personCard2.json"},
+    {"nodeNum":6,"personId":"7","name":"Bernie Marsh","group":7,"href":"http://www.google.com", "thumbUrl":"ajax/personCard.json"},
+    {"nodeNum":7,"personId":"8","name":"Marco Lopez","group":8,"href":"http://www.google.com", "thumbUrl":"ajax/personCard2.json"}
   ],
   "links":[
     {"source":1,"target":0,"value":1,"href":"ajax/caseCard1.json"},
-    {"source":2,"target":0,"value":8,"href":"ajax/caseCard1.json"},
-    {"source":3,"target":2,"value":10,"href":"ajax/caseCard1.json"},
-    {"source":4,"target":3,"value":6,"href":"ajax/caseCard1.json"},
-    {"source":4,"target":0,"value":1,"href":"ajax/caseCard1.json"},
-    {"source":5,"target":0,"value":1,"href":"ajax/caseCard1.json"},
-    {"source":6,"target":0,"value":1,"href":"ajax/caseCard1.json"},
-    {"source":7,"target":0,"value":1,"href":"ajax/caseCard1.json"}
+    {"source":2,"target":0,"value":1,"href":"ajax/caseCard1.json"},
+    {"source":3,"target":0,"value":2,"href":"ajax/caseCard1.json"},
+    {"source":4,"target":3,"value":8,"href":"ajax/caseCard1.json"},
+    {"source":4,"target":0,"value":4,"href":"ajax/caseCard1.json"},
+    {"source":5,"target":0,"value":5,"href":"ajax/caseCard1.json"},
+    {"source":6,"target":0,"value":6,"href":"ajax/caseCard1.json"},
+    {"source":7,"target":0,"value":7,"href":"ajax/caseCard1.json"}
   ]
 }

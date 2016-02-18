@@ -1,10 +1,10 @@
 "use strict";
 var app = angular.module('myGraphApp');
 
-app.directive('personInfoCard',['$http',function($http){
+app.directive('personInfoCard',['$http','PersonService',function($http, PersonService){
 	return {
 		scope:{
-			href:'@'
+			personId:'@'
 		},
 		templateUrl:'partials/personInfoCard.html',
 		link:function(scope, element, attrs) {
@@ -18,13 +18,11 @@ app.directive('personInfoCard',['$http',function($http){
 
 			}
 
-			var responsePromise = $http.get(scope.href);
-			responsePromise.success(function(data, status, headers, config) {
+			PersonService.getPerson(scope.personId,function(data, status, headers, config) {
 				scope.name = data.name;
 				scope.imageUrl = data.imageUrl;
 				scope.labels = data.labels;
-			});
-			responsePromise.error(function(data, status, headers, config) {
+			},function(data, status, headers, config) {
 				alert("AJAX failed!");
 			});
 		}
@@ -32,26 +30,59 @@ app.directive('personInfoCard',['$http',function($http){
 
 }]);
 
-app.directive('personTable',['$http',function($http){
+app.directive('personTable',['$http','PersonService',function($http, PersonService){
 	return {
 		scope:{
-			href:'@'
+			personId:'@'
 		},
 		templateUrl:'partials/personTable.html',
 		link:function(scope, element, attrs) {
-			console.log(scope.href+":"+scope.href.length);
+			console.log(scope.personId);
 
-			if(scope.href  && 0 !== scope.href.length){
-				scope.href = "ajax/"+scope.href+".json";
-				var responsePromise = $http.get(scope.href);
-				responsePromise.success(function(data, status, headers, config) {
-					scope.data = data;
-				});
-				responsePromise.error(function(data, status, headers, config) {
+			if(scope.personId  && 0 !== scope.personId.length){
+				/*
+				var getIncomingRelations = function(nodeNum, links){
+					var relations = [];
+					for(var link in links){
+						if(link.target === nodeNum || link.source === nodeNum){
+							relations.push(link);
+						}
+					}
+					return relations;
+				}
+				*/
+				PersonService.getPerson(scope.personId,function(data){
+					scope.personData = data;
+				},function(){
 					alert("AJAX failed!");
 				});
 
-				scope.$watch("href",function(newValue,oldValue) {
+				scope.persons = [];
+
+				PersonService.getRelationshipsForPerson(scope.personId,function(data, status, headers, config) {
+					if(data){
+						for(var link in data.links){
+							link = data.links[link];
+							console.log(link);
+							var sourceNode = $.grep(data.nodes, function(e){ return e.nodeNum == link.source; });
+							var targetNode = $.grep(data.nodes, function(e){ return e.nodeNum == link.target; });
+								if(sourceNode[0].personId === scope.personId || targetNode[0].personId === scope.personId ){
+								scope.persons.push({
+									source:sourceNode[0],
+									target:targetNode[0],
+									relation:PersonService.getTypeOfRelationship(link.value)
+								});
+							}
+						}
+					}
+					else{
+						alert('No data!');
+					}
+				},function(data, status, headers, config) {
+					alert("AJAX failed!");
+				});
+
+				scope.$watch("personId",function(newValue,oldValue) {
 					console.log('Value changed!'+newValue);
 				});
 			}
@@ -60,6 +91,16 @@ app.directive('personTable',['$http',function($http){
 			}
 		}
 	}
+
+}]);
+
+app.controller('ItemController', ['$scope', function (scope) {
+
+	scope.$parent.isopen = (scope.$parent.default === scope.item);
+
+	scope.$watch('isopen', function (newvalue, oldvalue, scope) {
+		scope.$parent.isopen = newvalue;
+	});
 
 }]);
 
@@ -107,10 +148,10 @@ app.directive('myFooter',['$http',function($http){
 }]);
 
 
-app.directive('graphChart',['$compile','GraphService',function($compile, GraphService){
+app.directive('graphChart',['$compile','GraphService','PersonService',function($compile, GraphService,PersonService){
 	return {
 		scope:{
-			href:'@'
+			personId:'@'
 		},
 		controller:'GraphController',
 		template:'<div id="{{id}}"><span class="btn btn-primary glyphicon glyphicon-refresh" ng-click="refresh()"></span></div>',
@@ -170,13 +211,24 @@ app.directive('graphChart',['$compile','GraphService',function($compile, GraphSe
 			var svg = GraphService.createSvg(element, width, height);
 			var force = GraphService.createForce(width,height);
 
-			d3.json(scope.href, updateGraph);
+
+			//d3.json(scope.personId, updateGraph);
+			PersonService.getRelationshipsForPerson(scope.personId,function(data){
+				updateGraph(null,data);
+			},function(){
+				alert('Error retrieving JSON for relationships');
+			});
 
 			scope.refresh = function(){
 				svg.remove();
 				svg = GraphService.createSvg(element, width, height);
 				force = GraphService.createForce(width,height);
-				d3.json(scope.href, updateGraph);
+				//d3.json(scope.personId, updateGraph);
+				PersonService.getRelationshipsForPerson(scope.personId,function(data){
+					updateGraph(null,data);
+				},function(){
+					alert('Error retrieving JSON for relationships');
+				});
 				force.start();
 			}
 
